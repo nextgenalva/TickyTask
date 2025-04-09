@@ -3,11 +3,11 @@ import { BiSolidZap } from "react-icons/bi";
 
 const Hero = () => {
     return (
-        <div className="py-16 bg-gradient-to-br from-blue-50 to-pink-50">
+        <div className="py-12 bg-gradient-to-br from-blue-50 to-pink-50">
             <div className="max-w-6xl mx-auto px-4">
                 {/* New Updates badge */}
-                <div className="flex justify-center mb-12 tracking-tight">
-                    <div className="border rounded-xl py-3 px-3 flex items-center gap-2">
+                <div className="flex justify-center mb-8 tracking-tight">
+                    <div className="border-2 border-gray-200 rounded-xl py-3 px-3 flex items-center gap-2">
                         <span className="text-blue-500">
                             <BiSolidZap />
                         </span>
