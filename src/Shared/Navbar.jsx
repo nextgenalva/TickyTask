@@ -1,17 +1,21 @@
 import React from 'react';
-import { ShimmerButton } from '../components/magicui/shimmer-button';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     return (
-        <div className="w-7/12 mx-auto">
-            <div className="navbar bg-base-300 shadow-sm rounded-lg my-2">
-                <div className="flex-1">
-                    <a className="btn btn-ghost text-xl rounded-lg">TickyTask</a>
-                </div>
-                <div className="flex-none">
-                    <ul className="menu menu-horizontal px-2">
-                        <ShimmerButton rippleColor="173, 216, 230" className="btn rounded-lg">Login</ShimmerButton>
-                    </ul>
+        <div className="bg-gradient-to-r from-blue-50 to-blue-50 border-b border-gray-100">
+            <div className="max-w-6xl mx-auto px-4">
+                <div className="flex justify-between items-center py-4">
+                    {/* Logo */}
+                    <Link to="/" className="font-extrabold text-2xl tracking-tight">
+                        <span className="bg-gradient-to-r from-orange-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">Ticky</span>
+                        <span>Task</span>
+                    </Link>
+
+                    {/* Login Button */}
+                    <Link to="/login" className="btn btn-neutral rounded-lg text-white font-medium">
+                        Login
+                    </Link>
                 </div>
             </div>
         </div>
