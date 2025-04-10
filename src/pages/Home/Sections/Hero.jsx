@@ -1,5 +1,6 @@
 import React from 'react';
 import { BiSolidZap } from "react-icons/bi";
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
     return (
@@ -34,9 +35,9 @@ const Hero = () => {
 
                 {/* CTA buttons */}
                 <div className="flex justify-center gap-4 my-8">
-                    <button className="btn btn-lg btn-neutral text-white rounded-lg shadow-sm font-medium">
+                    <Link to='/login' className="btn btn-lg btn-neutral text-white rounded-lg shadow-sm font-medium">
                         Get started today
-                    </button>
+                    </Link>
                     <button className="btn btn-lg px-6 border-none rounded-lg shadow text-gray-800 font-medium">
                         Learn more
                     </button>
