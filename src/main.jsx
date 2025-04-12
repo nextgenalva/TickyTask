@@ -11,6 +11,7 @@ import Login from './pages/Auth/Login';
 import Signup from './pages/Auth/Signup';
 import AuthProvider from './provider/AuthProvider';
 import Profile from './pages/Profile/Profile';
+import Dashboard from './pages/Task/Dashboard';
 
 const router = createBrowserRouter([
   {
@@ -22,8 +23,8 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/tasks',
-        element: <Profile />,
+        path: '/dashboard',
+        element: <Dashboard />,
       },
       {
         path: '/profile',
