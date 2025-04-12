@@ -58,7 +58,7 @@ const Hero = () => {
 
                         {/* The actual dashboard image */}
                         <img
-                            src="/src/assets/Screenshot 2025-04-09 233927.png"
+                            src="/dashboard.png"
                             alt="TickyTask Dashboard Interface"
                             className="w-full h-auto rounded-lg sm:rounded-xl shadow-inner object-cover"
                             onError={(e) => {

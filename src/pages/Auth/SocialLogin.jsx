@@ -20,7 +20,7 @@ const SocialLogin = () => {
         try {
             const result = await method();
             console.log(result.user);
-            navigate('/');
+            navigate('/tasks');
         } catch (error) {
             console.error(`${provider} sign-in error:`, error.message);
             setError(`Failed to sign in with ${provider}: ${error.message}`);

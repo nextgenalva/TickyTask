@@ -78,7 +78,7 @@ const Signup = () => {
             setUser(user);
             updateUserProfile({ displayName: name, photoURL: photo })
             .then(() => {
-                navigate('/');
+                navigate('/tasks');
             }).catch(err => {
                 console.log('Error updating user profile');
             })
