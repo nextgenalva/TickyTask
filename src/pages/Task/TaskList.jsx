@@ -1,19 +1,17 @@
-import TaskCard from "./TaskCard";
+import React from 'react';
+import TaskCard from './TaskCard';
+import TaskInputModal from './TaskInputModal';
 
-const TaskList = () => {
-    const tasks = [
-        { title: "Read a book 📚", time: "08:00 - 09:00" },
-        { title: "Wireframing new product", time: "09:00 - 11:00" },
-        // Add more...
-    ];
-
-    return (
-        <div className="space-y-3 mt-4">
-            {tasks.map((task, idx) => (
-                <TaskCard key={idx} {...task} />
-            ))}
-        </div>
-    );
+const TaskList = ({ tasks, onAddTask }) => {
+  return (
+    <div className="space-y-3">
+      {tasks.map((task) => (
+        <TaskCard key={task.id} task={task} />
+      ))}
+      
+      <TaskInputModal onAddTask={onAddTask} />
+    </div>
+  );
 };
 
 export default TaskList;

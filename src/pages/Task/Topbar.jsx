@@ -1,17 +1,27 @@
 import React from 'react';
 
 const Topbar = () => {
-    return (
-        <div className="flex justify-between items-center px-4 py-2 border-b">
-            <div>
-                <h1 className="text-lg font-semibold">Good Morning, Sullivan 👋</h1>
-                <p className="text-sm text-gray-500">Today, Wed 26 July 2023</p>
-            </div>
-            <div>
-                <button className="btn btn-sm">Today</button>
-            </div>
+  const currentDate = new Date();
+  const formattedDate = currentDate.toLocaleDateString('en-US', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+
+  return (
+    <div className="bg-white shadow-sm">
+      <div className="p-6 flex justify-between items-center">
+        <div>
+          <h1 className="text-2xl font-bold">Good Morning, Sullivan! 👋</h1>
+          <p className="text-gray-500">Today, {formattedDate}</p>
         </div>
-    );
+        <div className="dropdown dropdown-end">
+          <button className="btn btn-outline btn-sm">Today</button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Topbar;
