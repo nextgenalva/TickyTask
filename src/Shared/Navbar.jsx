@@ -1,5 +1,5 @@
 import React, { useContext, useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 import { FiChevronDown, FiUser, FiLogOut } from 'react-icons/fi';
 
@@ -7,6 +7,8 @@ const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const location = useLocation();
+    const isAppRoute = location.pathname.startsWith('/app');
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -38,7 +40,7 @@ const Navbar = () => {
     };
 
     return (
-        <div className="bg-gradient-to-br from-blue-50 to-blue-50 border-b border-gray-100">
+        <div className={`bg-gradient-to-br ${isAppRoute ? 'from-white to-white' : 'from-blue-50 to-blue-50'} border-b border-gray-100`}>
             <div className="max-w-6xl mx-auto px-4">
                 <div className="flex justify-between items-center py-4">
                     {/* Logo */}
@@ -82,7 +84,7 @@ const Navbar = () => {
                                         <p className="text-sm text-gray-500 truncate">{user.email}</p>
                                     </div>
                                     <Link 
-                                        to="/profile" 
+                                        to="/app/profile" 
                                         className="flex items-center space-x-2 px-4 py-2 text-gray-700 hover:bg-gray-50"
                                         onClick={() => setIsDropdownOpen(false)}
                                     >
