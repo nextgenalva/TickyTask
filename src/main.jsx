@@ -16,6 +16,7 @@ import Dashboard from './pages/Task/Dashboard';
 import CategoryView from './pages/Task/CategoryView';
 import PrivateRoute from './Routes/PrivateRoute';
 import PublicRoute from './Routes/PublicRoute';
+import TaskListWrapper from './pages/Task/TaskListWrapper';
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <PublicRoute><Signup /></PublicRoute>,
+  },
+  {
+    path: "list/:id",
+    element: <PrivateRoute><TaskListWrapper /></PrivateRoute>,  // ✅ Correct, single route for TaskListWrapper
   },
   {
     path: "/app",
@@ -80,7 +85,6 @@ const router = createBrowserRouter([
       },
     ]
   },
-  // Redirect authenticated users from root to app
   {
     path: "*",
     element: <PrivateRoute><Navigate to="/app" replace /></PrivateRoute>,

@@ -1,70 +1,73 @@
-import app from '../firebase/firebase.config';
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, GithubAuthProvider, GoogleAuthProvider, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
-
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
+  updateProfile
+} from "firebase/auth";
+import app from '../firebase/firebase.config';
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
-
 const googleProvider = new GoogleAuthProvider();
 const githubProvider = new GithubAuthProvider();
 
-const AuthProvider = ({children}) => {
-    const [user, setUser] = useState(null);
-    console.log(user);
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // ✅ Prevent render race conditions
 
-    const createNewUser = (email, password) =>{
-        return createUserWithEmailAndPassword(auth, email, password)
-    }
+  // Auth state listener
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, currentUser => {
+      setUser(currentUser);
+      setLoading(false); // ✅ Wait for auth check before rendering children
+    });
 
-    const userLogin = (email, password) => {
-        return signInWithEmailAndPassword(auth, email, password);
-    }
+    return () => unsubscribe();
+  }, []);
 
-    const updateUserProfile = (updatedData) => {
-        return updateProfile(auth.currentUser, updatedData)
-    }
+  // Auth methods
+  const createNewUser = (email, password) =>
+    createUserWithEmailAndPassword(auth, email, password);
 
-    const passwordResetEmail = (email) => {
-        return sendPasswordResetEmail(auth, email)
-    }
+  const userLogin = (email, password) =>
+    signInWithEmailAndPassword(auth, email, password);
 
-    const logOut =  () => {
-        return signOut(auth);
-    }
+  const updateUserProfile = updatedData =>
+    updateProfile(auth.currentUser, updatedData);
 
-    const signInWithGoogle = () => {
-        return signInWithPopup(auth, googleProvider)
-    }
+  const passwordResetEmail = email =>
+    sendPasswordResetEmail(auth, email);
 
-    const signInWithGithub = () => {
-        return signInWithPopup(auth, githubProvider)
-    }
+  const logOut = () => signOut(auth);
 
-    const authInfo = {
-        user, 
-        setUser,
-        createNewUser,
-        logOut,
-        userLogin,
-        updateUserProfile,
-        passwordResetEmail,
-        signInWithGoogle,
-        signInWithGithub
-    }
+  const signInWithGoogle = () => signInWithPopup(auth, googleProvider);
+  const signInWithGithub = () => signInWithPopup(auth, githubProvider);
 
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, currentUser => {
-            setUser(currentUser);
-        })
-        return () => {
-            unsubscribe();
-        }
-    },[])
+  const authInfo = {
+    user,
+    setUser,
+    loading,
+    createNewUser,
+    userLogin,
+    updateUserProfile,
+    passwordResetEmail,
+    logOut,
+    signInWithGoogle,
+    signInWithGithub
+  };
 
-    return <AuthContext.Provider value={authInfo}>
-        {children}
-    </AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={authInfo}>
+      {!loading && children} {/* ✅ Only render children after auth check */}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;
